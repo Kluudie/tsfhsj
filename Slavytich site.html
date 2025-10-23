@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Славутич</title>
+<link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --accent: #ff7a18;
+  --muted: #6b7280;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --glass: rgba(255,255,255,0.6);
+  --maxw: 1200px;
+  --radius: 16px;
+  --shadow: 0 8px 24px rgba(15,23,42,0.1);
+  --ani-slow: 900ms;
+  --ani-fast: 320ms;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color:#0f172a;
+  font-size:18px;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:32px;}
+header{position:sticky;top:12px;z-index:30;}
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 24px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter:blur(8px);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+}
+.brand{display:flex;align-items:center;gap:16px;}
+.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(255, 122, 24, 0.3);
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--accent), #ffb199);
+  position: relative;
+}
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  transition: transform 0.4s ease;
+}
+.logo::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 80%);
+  transform: skewX(-25deg);
+  transition: all 0.75s ease;
+}
+.logo:hover::after {
+  left: 125%;
+}
+.logo:hover .logo-img {
+  transform: scale(1.1);
+}
+.site-title{font-weight:700;font-size:22px;}
+nav ul {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  flex-wrap: wrap; 
+}
+.btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(255,122,24,0.2);
+  transition: transform 0.3s ease;
+  font-size: 18px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+@media (max-width: 650px) {
+  nav ul {
+    justify-content: center;
+  }
+  .btn {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 0;
+  }
+}
+.hero{display:grid;gap:30px;padding:48px 0;}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;}
+.hero-card{
+  background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.5));
+  border-radius:20px;padding:36px;box-shadow:var(--shadow);
+  display:flex;gap:24px;align-items:center;position:relative;
+}
+.hero-card:hover .hero-photo{transform:scale(1.05);}
+.hero-info h1{margin:0;font-size:28px;}
+.columns{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:28px;}
+.card{
+  background:var(--card);padding:24px;border-radius:16px;
+  box-shadow:var(--shadow);
+  transition:transform var(--ani-fast) ease, box-shadow var(--ani-fast);
+}
+.card:hover{transform:translateY(-8px);box-shadow:0 16px 36px rgba(15,23,42,0.1);}
+.room-photo{
+  width:100%;height:220px;border-radius:16px;
+  background-size:cover;background-position:center;
+  margin-bottom:16px;
+  transition: transform 0.4s ease;
+}
+.room-photo:hover{
+  transform: scale(1.08);
+}
+.photo-slider {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 100%;
+  height: 100%;
+}
+.slide {
+  min-width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+.photo-slider button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.photo-slider .prev { left: 8px; }
+.photo-slider .next { right: 8px; }
+.photo-slider button:hover {
+  background: rgba(0,0,0,0.6);
+}
+.services-photo {
+  width: 80%;
+  height: 150px;
+  border-radius: 16px;
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto 16px;
+  transition: transform 0.4s ease;
+}
+.services-photo:hover {
+  transform: scale(1.08);
+}
+footer{
+  margin-top:60px;padding:28px;
+  border-radius:16px;
+  background:rgba(15,23,42,0.05);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;
+  font-size:18px;
+}
+footer div{margin:8px 0;}
+@media (max-width:1000px){
+  .columns{grid-template-columns:repeat(2,1fr);}
+  .hero-inner{grid-template-columns:1fr;}
+}
+@media (max-width:650px){
+  .columns{grid-template-columns:1fr;}
+  .wrap{padding:16px;}
+  .brand .site-title{display:none;}
+}
+.fade-in{opacity:0;transform:translateY(15px);transition:opacity .9s ease, transform .9s ease;}
+.fade-in.is-visible{opacity:1;transform:none;}
+.ribbon{
+  display:inline-block;padding:8px 16px;border-radius:999px;
+  background:linear-gradient(90deg,var(--accent),#ffaf6b);
+  color:white;font-weight:700;margin-bottom:12px;
+}
+.hotel-description{
+  background:linear-gradient(180deg,rgba(255,255,255,0.85),rgba(255,255,255,0.65));
+  padding:28px; border-radius:16px;
+  box-shadow:var(--shadow);
+  margin-bottom:28px;
+  font-size:18px;
+}
+</style>
+</head>
+<body>
+<div class="bg-blob top-left"></div>
+<div class="bg-blob bottom-right"></div>
+<div class="bg-blob extra-1"></div>
+<div class="bg-blob extra-2"></div>
+<div class="wrap">
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">
+        <img src="photos/logo.png" alt="Славутич" class="logo-img">
+      </div>
+      <div>
+        <div class="site-title">Славутич — Горішні Плавні</div>
+        <div class="muted">Конференції • Проживання • Відпочинок</div>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#rooms" class="muted">Номери</a></li>
+        <li><a href="#services" class="muted">Послуги</a></li>
+        <li><a href="#advantages" class="muted">Різне</a></li>
+        <li><a class="btn" href="#book">Забронювати</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="about" style="margin-bottom:40px;">
+  <div class="hotel-description fade-in" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;">
+    <div>
+      <h2>Готель «Славутич» вітає Вас!</h2>
+      <p class="muted text-appear">Затишний готель «Славутич» пропонує своє поселення в номерах категорій: Стандарт, Стандарт покращений, Люкс(одномісний), Люкс(двомісний). З більшості номерів відкривається мальовничий краєвид на річку Дніпро або затоку Барбара. Готель розміщений в 20 хв. ходи від міста
+
+До послуг гостей — безкоштовний Wi-Fi, парковка та облаштований пляж. Поруч розташовані пляжне кафе та альтанки для відпочинку. Привітний персонал подбає про Ваш затишок і гарний настрій.</p>
+    </div>
+    <div>
+      <div style="width:100%;height:300px;border-radius:16px;background:url('photos/DSC00823.JPG') center/cover;box-shadow:var(--shadow);"></div>
+    </div>
+  </div>
+</section>
+
+
+<section id="rooms">
+  <h2 style="margin-top:28px;margin-bottom:16px;">Номери</h2>
+  <div class="columns">
+    
+    <input type="checkbox" id="modal-1" hidden>
+    <label for="modal-1" class="card fade-in" style="cursor:pointer;">
+      <div class="photo-slider">
+        <div class="slides">
+          <div class="slide" style="background-image:url('photos/DSC00801.JPG');"></div>
+        </div>
+        <button class="prev">◀</button>
+        <button class="next">▶</button>
+      </div>
+      <h3 style="font-size:22px;">Стандарт (покращений)</h3>
+      <p class="muted text-appear">Натисніть для детальної інформації...</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:18px">
+        <div style="font-weight:700">900 грн кімната / 1800 номер</div>
+      </div>
+    </label>
+
+    <div class="modal">
+      <div class="modal-content">
+        <label for="modal-1" class="close">&times;</label>
+        <h3>Стандарт (покращений)</h3>
+          <p>
+            Просторий та світлий номер, блочного варіанту на дві кімнати.
+            Ідеально підходить для друзів, колег або туристів, які подорожують разом.
+          </p>
+
+          <p>У кожній кімнаті два окремих односпальних ліжка, є всі необхідні зручності для комфортного відпочинку:</p>
+
+          <ul style="padding-left: 40px;">
+            <li>телевізор</li>
+            <li>кондиціонер</li>
+            <li>Wi-Fi</li>
+            <li>холодильник</li>
+            <li>чайник</li>
+            <li>туалетні приналежності (шампунь, гель для душу, мило, одноразові капці)</li>
+            <li>цілодобова гаряча та холодна вода</li>
+          </ul>
+
+
+          <p>В номері є холодильник, душова, санвузол</p>
+
+          <p><strong>Кількість місць:</strong> 4</p>
+          <p><strong>Вартість проживання:</strong> 1800 грн за номер або 900 грн за кімнату.</p>
+          <ul style="padding-left: 40px;">
+            <li>Поселення з 14:00, виселення о 12:00.</li>
+            <li>При поселенні з 06:00 (ранній заїзд) оплата 50% від добової вартості номера.</li>
+            <li>При виселенні після 12:00 до 00:00 (пізній виїзд) оплата 50% від добової вартості номера.</li>
+            <li>Куріння в номерах і коридорах готелю заборонено.</li>
+          </ul>
+          <br>
+        <img src="photos/DSC00801.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00802.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+      </div>
+    </div>
+
+    <input type="checkbox" id="modal-2" hidden>
+    <label for="modal-2" class="card fade-in" style="cursor:pointer;">
+      <div class="photo-slider">
+        <div class="slides">
+          <div class="slide" style="background-image: url('photos/DSC00794.JPG');"></div>
+          <div class="slide" style="background-image: url('photos/DSC00796.JPG');"></div>
+          <div class="slide" style="background-image: url('photos/DSC00798.JPG');"></div>
+        </div>
+        <button class="prev">◀</button>
+        <button class="next">▶</button>
+      </div>
+      <h3 style="font-size:22px;">Люкс (одномісний)</h3>
+      <p class="muted text-appear">Натисніть для детальної інформації...</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:18px">
+        <div style="font-weight:700">900 грн / ніч</div>
+      </div>
+    </label>
+
+    <div class="modal">
+      <div class="modal-content">
+        <label for="modal-2" class="close">&times;</label>
+        <h3>Люкс (одномісний)</h3>
+        <p>Якщо ви відправляєтеся відпочивати наодинці або у відрядження, то вам відмінно підійде одномісний номер з балконом.</p>
+        <p>Прекрасні умови, які не потребують величезних коштів.</p>
+        <p>Однокімнатний номер обладнаний усім необхідним для комфортного проживання:</p>
+
+          <ul style="padding-left: 40px;">
+            <li>телевізор</li>
+            <li>кондиціонер</li>
+            <li>Wi-Fi</li>
+            <li>холодильник</li>
+            <li>чайник</li>
+            <li>туалетні приналежності (шампунь, гель для душу, мило, одноразові капці)</li>
+            <li>цілодобова гаряча та холодна вода</li>
+          </ul>
+
+
+          <p>В номері є холодильник, душова, санвузол</p>
+
+          <p><strong>Кількість місць:</strong> 1</p>
+          <p><strong>Вартість проживання:</strong> 900 грн за номер.</p>
+          <ul style="padding-left: 40px;">
+            <li>Поселення з 14:00, виселення о 12:00.</li>
+            <li>При поселенні з 06:00 (ранній заїзд) оплата 50% від добової вартості номера.</li>
+            <li>При виселенні після 12:00 до 18:00 (пізній виїзд) оплата 50% від добової вартості номера.</li>
+            <li>Куріння в номерах і коридорах готелю заборонено.</li>
+          </ul>
+        <img src="photos/DSC00794.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00796.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00798.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00793.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+      </div>
+    </div>
+
+    <input type="checkbox" id="modal-3" hidden>
+    <label for="modal-3" class="card fade-in" style="cursor:pointer;">
+      <div class="photo-slider">
+        <div class="slides">
+          <div class="slide" style="background-image: url('photos/DSC00781.JPG');"></div>
+          <div class="slide" style="background-image: url('photos/DSC00779.JPG');"></div>
+          <div class="slide" style="background-image: url('photos/DSC00784.JPG');"></div>
+        </div>
+        <button class="prev">◀</button>
+        <button class="next">▶</button>
+      </div>
+      <h3 style="font-size:22px;">Люкс (з двоспальним ліжком)</h3>
+      <p class="muted text-appear">Натисніть для детальної інформації...</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:18px">
+        <div style="font-weight:700">від 1400 грн / ніч</div>
+      </div>
+    </label>
+
+    <div class="modal">
+      <div class="modal-content">
+        <label for="modal-3" class="close">&times;</label>
+        <h3>Люкс (з двоспальним ліжком)</h3>
+        <p>
+            Номери цієї категорії пропонують велике двоспальне ліжко, простору зону відпочинку, балкон з видом на р.Дніпро.
+          </p>
+
+          <p>Додаткові зручності в номері:</p>
+
+          <ul style="padding-left: 40px;">
+            <li>телевізор</li>
+            <li>кондиціонер</li>
+            <li>Wi-Fi</li>
+            <li>чайник</li>
+            <li>фен</li>
+            <li>туалетні приналежності (шампунь, гель для душу, мило, одноразові капці)</li>
+            <li>цілодобова гаряча та холодна вода</li>
+          </ul>
+
+
+          <p>В номері є холодильник, душова, санвузол</p>
+
+          <p><strong>Кількість місць:</strong> 2 (можливість надання додаткового місця)</p>
+          <p><strong>Вартість проживання:</strong> 1400 грн за номер</p>
+          <ul style="padding-left: 40px;">
+            <li>Поселення з 14:00, виселення о 12:00.</li>
+            <li>При поселенні з 06:00 (ранній заїзд) оплата 50% від добової вартості номера.</li>
+            <li>При виселенні після 12:00 до 00:00 (пізній виїзд) оплата 50% від добової вартості номера.</li>
+            <li>Куріння в номерах і коридорах готелю заборонено.</li>
+          </ul>
+        <img src="photos/DSC00781.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00779.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00784.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00787.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00788.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="services" style="margin-top:60px;">
+  <h2 style="font-size:24px;">Послуги</h2>
+  <div class="columns">
+    <input type="checkbox" id="modal-10" hidden>
+    <label for="modal-10" class="card fade-in" style="cursor:pointer;">
+      <div class="services-photo" style="background-image:url('photos/DSC00804.JPG');"></div>
+      <h3 style="font-size:20px;">Конференц-зал</h3>
+      <p class="muted text-appear">Натисніть для перегляду картинок...</p>
+    </label>
+        <div class="modal">
+      <div class="modal-content">
+        <label for="modal-10" class="close">&times;</label>
+        <h3>Конференц-зал</h3>
+        <p>Послуга включає погодинну оренду приміщення малого конференц-залу до 30 осіб.</p>
+        <p><strong>Вартість послуги:</strong> 360 грн за годину</p>
+        <p><strong>Час надання послуги:</strong> з 6:00 до 22:00</p>
+        <img src="photos/DSC00804.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00805.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00806.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+        <img src="photos/DSC00807.JPG" alt="" style="width:100%;border-radius:16px;margin-bottom:12px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="advantages" style="margin-top:60px;">
+  <h2 style="font-size:24px;">Різне</h2>
+  <div class="columns">
+    <div class="card fade-in">
+      <h3 style="font-size:20px; " class="muted text-appear">Парковка на території</h3>
+    </div>
+    <div class="card fade-in">
+      <h3 style="font-size:20px; " class="muted text-appear">Альтанки</h3>
+    </div>
+  <div class="card fade-in">
+    <h3 style="font-size:20px;" class="muted text-appear">Датчики диму</h3>
+  </div>
+  <div class="card fade-in">
+    <h3 style="font-size:20px;" class="muted text-appear">Розрахунок карткою</h3>  
+  </div>
+  <div class="card fade-in">
+    <h3 style="font-size:20px;" class="muted text-appear">Послуги прання</h3>  
+  </div>
+    <div class="card fade-in">
+    <h3 style="font-size:20px;" class="muted text-appear">Чай/Кава</h3>  
+  </div>
+</section>
+<div style="text-align:center; margin:40px 0;">
+  <a href="gallery.html" class="btn">Перейти до Галереї</a>
+</div>
+
+
+
+<footer>
+  <div>© 2025 — Горішні Плавні, Полтавська обл.</div>
+  <div>Адреса: вул. Набережна 1</div>
+  <div>Телефон: +38 (068) 921‑6703</div>
+  <div>hotel_slavutich@ukr.net</div>
+</footer>
+<div class="map-container">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d291.4461797480133!2d33.614183397622234!3d49.00872617411644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d9ff95f78ea23b%3A0x6d04dff96a9da47b!2z0KHQu9Cw0LLRg9GC0LjRhy0y!5e0!3m2!1suk!2sua!4v1761158313465!5m2!1suk!2sua"
+    width="600" 
+    height="450"
+    style="border:0;" 
+    allowfullscreen="" 
+    loading="lazy">
+  </iframe>
+</div>
+
+<script>
+const faders = document.querySelectorAll('.fade-in');
+
+const appearOptions = {
+  threshold: 0.1,
+  rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries){
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+    } else {
+      entry.target.classList.remove('is-visible');
+    }
+  });
+}, appearOptions);
+
+faders.forEach(fader=>{
+  appearOnScroll.observe(fader);
+});
+</script>
+
+
+<script>
+document.querySelectorAll('.photo-slider').forEach(slider=>{
+  const slides = slider.querySelector('.slides');
+  const slideCount = slides.children.length;
+  let index = 0;
+
+  const updateSlide = ()=>{
+    slides.style.transform = `translateX(-${index * 100}%)`;
+  };
+
+  slider.querySelector('.prev').addEventListener('click', ()=>{
+    index = (index - 1 + slideCount) % slideCount;
+    updateSlide();
+  });
+
+  slider.querySelector('.next').addEventListener('click', ()=>{
+    index = (index + 1) % slideCount;
+    updateSlide();
+  });
+});
+</script>
+
+<script>
+document.querySelector('.btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+  });
+});
+</script>
+
+
+</body>
+</html>
